@@ -6,8 +6,11 @@ const PORT = process.env.PORT || 8000;
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
-const apiRoutes = require('./routes/apiRoutes');
-app.use("/api",apiRoutes);
+const apiUserRoutes = require('./routes/apiUserRoutes');
+const apiPostRoutes = require('./routes/apiPostRoutes');
+
+app.use("/api/user",apiUserRoutes);
+app.use("/api/post",apiPostRoutes);
 
 db.sequelize.sync().then(()=>{
     app.listen(PORT,()=>{
