@@ -1,0 +1,21 @@
+const jwt = require('jsonwebtoken');
+
+module.exports = (req, res, next) => {
+    try{    // plusieurs elements qui peuvent poser probleme, donc si moindre erreur sur moindre ligne, on veut les gerer dans le bloc catch
+        const token = req.headers.authorization;//Plus besoin de split vu qu'on use plus "token " 
+        const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET"); // clé qui correspond à la clé secrete du login
+        console.log(decodedToken);
+        const userId = decodedToken.userId;
+
+        req.auth = userId;//On ajoute le userId(en valeur à userId) à la req.auth, pour pouvoir faire comparaison dans le deleteThing 
+        //On y aura donc accès avec req.auth.userId(qui donnera l'userId)
+
+        if(req.body.userId && req.body.userId !== userId){// Si on a un user id dans la requete, ET qu'il est différent de userId, alors erreur
+            throw 'UserID non valable !';
+        } else{
+            next(); // pour chaque requete sur une route protégée, on passe par ce middleware. Si on arrive ici, on peut passer la requete au prochain Middleware
+        }
+    } catch (error){                            
+        res.status(401).json({error: error | 'Requête non authentifiée !'}); // si erreur sur autre ligne que dans le try, ça renvoit "Requete non authentifiée"
+    }
+};

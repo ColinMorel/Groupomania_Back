@@ -1,47 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../models');
+const userCtrl = require('../controllers/user');
+const auth = require('../middleware/auth');
+const multer = require('../middleware/multer-config');
 
-//get all Users
-router.get("/find/all",(req,res)=>{
-    db.User.findAll().then(Users=>res.send(Users));
-});
 
-//get a User
-router.get("/find/:id",(req,res)=>{
-    db.User.findAll({
-        where:{
-            id:req.params.id
-        }
-    }).then(User=>res.send(User));
-});
+//auth
+router.post("/signup",userCtrl.signup);
+router.post("/login",userCtrl.login);
 
-//create a new user
-router.post("/new",(req,res)=>{
-    db.User.create({mail:req.body.mail,password:req.body.password,lastname:req.body.lastname,firstname:req.body.firstname})
-        .then(submitedUser => res.send(submitedUser))
-});
 
-//delete a User
-router.delete("/delete/:id",(req,res)=>{
-    db.User.destroy({
-        where:{
-            id:req.params.id
-        }
-    }).then(res.send(`L'User possédant l'id numero ${req.params.id} a bien été supprimé`))
-})
+//User Database
+router.get("/find/all",userCtrl.getAllUser);
+router.get("/find/:id",userCtrl.getAUser);
+router.put("/edit/:id",auth, multer, userCtrl.editUser);
+router.delete("/delete/:id",userCtrl.deleteUser);
 
-//edit a User
-router.put("/edit/:id",(req,res)=>{
-    db.User.update(
-    {
-        mail:req.body.mail,
-        password:req.body.password,
-        lastname:req.body.lastname,
-        firstname:req.body.firstname
-    },
-    {
-        where:{id: req.params.id}
-    }).then(()=>res.send(`L'User possédant l'id numéro ${req.params.id} a bien été modifié.`))
-})
 module.exports = router;

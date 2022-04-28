@@ -1,7 +1,8 @@
 module.exports = (sequelize,DataTypes)=>{
-    const user = sequelize.define("User",{
-        mail:{
+    const User = sequelize.define("User",{
+        email:{
             type: DataTypes.STRING,
+            unique:true,
             allowNull: false
         },
         password:{
@@ -15,7 +16,26 @@ module.exports = (sequelize,DataTypes)=>{
         firstname:{
             type: DataTypes.STRING,
             allowNull: false
+        },
+        administrator:{
+            type: DataTypes.BOOLEAN,
+            allowNull:true,
+            defaultValue:0
+        },
+        image:{
+            type: DataTypes.STRING,
+            allowNull:false,
+            defaultValue:'https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png'
         }
     });
-    return user;
+
+    User.associate = models =>{
+        User.hasMany(models.Post,{
+            onDelete:"cascade",
+            onUpdate:'cascade'
+        });
+    };
+
+    
+    return User;
 }
