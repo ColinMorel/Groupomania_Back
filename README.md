@@ -4,7 +4,7 @@ First, you need to have already installed NodeJS: https://nodejs.org/en/
 Then, you're going to create a database. 
 
 
-## BDD
+## DataBase
 I chose wampserver, because it is quite easy to configure. So first download it : https://www.wampserver.com .
 Then you start the programm Wampserver64, wait few seconds for the windows to pop up and disappear, go on the hidden apps on your task bar and click on "start the services" (on the wamp server icone) and then go to phphMyAdmin 5.1.1. After entering your mysql logs into the browser window that opened, you're going to create a database called "groupomania".
 
