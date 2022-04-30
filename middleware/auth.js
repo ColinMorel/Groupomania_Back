@@ -1,9 +1,11 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
 
 module.exports = (req, res, next) => {
     try{    // plusieurs elements qui peuvent poser probleme, donc si moindre erreur sur moindre ligne, on veut les gerer dans le bloc catch
         const token = req.headers.authorization;//Plus besoin de split vu qu'on use plus "token " 
-        const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET"); // clé qui correspond à la clé secrete du login
+        const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN); // clé qui correspond à la clé secrete du login
         console.log(decodedToken);
         const userId = decodedToken.userId;
 

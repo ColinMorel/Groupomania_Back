@@ -26,6 +26,9 @@ module.exports = (sequelize,DataTypes)=>{
             type: DataTypes.STRING,
             allowNull:false,
             defaultValue:'https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png'
+        },
+        bio:{
+            type: DataTypes.STRING
         }
     });
 
@@ -35,7 +38,6 @@ module.exports = (sequelize,DataTypes)=>{
             onUpdate:'cascade'
         });
     };
-
     
     return User;
 }

@@ -11,9 +11,9 @@ router.post("/login",userCtrl.login);
 
 
 //User Database
-router.get("/find/all",userCtrl.getAllUser);
-router.get("/find/:id",userCtrl.getAUser);
+router.get("/find/all",auth,userCtrl.getAllUser);
+router.get("/find/:id",auth,userCtrl.getAUser);
 router.put("/edit/:id",auth, multer, userCtrl.editUser);
-router.delete("/delete/:id",userCtrl.deleteUser);
+router.delete("/delete/:id",auth,userCtrl.deleteUser);
 
 module.exports = router;

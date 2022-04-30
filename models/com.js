@@ -20,9 +20,5 @@ module.exports = (sequelize,DataTypes)=>{
 
     Com.associate = models => {Com.belongsTo(models.Post,{onDelete:'CASCADE'})}
     Com.associate = models => {Com.belongsTo(models.User,{onDelete:'CASCADE'})}
-
-    /*
-    ALTER TABLE `posts` ADD CONSTRAINT `Link_Post_User` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-    */
     return Com;
 }
