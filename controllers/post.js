@@ -1,13 +1,13 @@
 const db = require('../models');
 const fs = require('fs'); //gerer les file systeme, pense y
 
-exports.getAllPost = (req,res) =>{
+exports.getAllPost = (req,res)=>{
     db.Post.findAll({include: db.Com})
     .then(Posts=>res.send(Posts))
     .catch(()=>{res.status(404).send(new Error('OH OH NOT FOUND'))});
 };
 
-exports.getAPost = (req,res) =>{
+exports.getAPost = (req,res)=>{
     db.Post.findOne({
         where:{id:req.params.id}
     })
@@ -29,7 +29,7 @@ exports.createPost = (req,res)=>{
 
 exports.deletePost = (req,res)=>{
     db.Post.findOne({where:{id:req.params.id}})
-    .then(post => {
+    .then((post)=>{
         const filename = post.image.split('/images/')[1];//on recup le nom du fichier
         fs.unlink(`images/${filename}`, () =>{
             db.Post.destroy({where:{id:req.params.id}})

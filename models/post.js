@@ -16,7 +16,7 @@ module.exports = (sequelize,DataTypes)=>{
 
     Post.associate = models => {
         Post.belongsTo(models.User)
-    }
+    };
     Post.associate = models =>{
         Post.hasMany(models.Com,{
             onDelete:"cascade"

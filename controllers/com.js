@@ -1,13 +1,13 @@
 const db = require('../models');
 const fs = require('fs'); //gerer les file systeme, pense y
 
-exports.getAllCom = (req,res) =>{
+exports.getAllCom = (req,res)=>{
     db.Com.findAll()
     .then(Coms=>res.send(Coms))
     .catch(()=>{res.status(404).send(new Error('OH OH NOT FOUND'))});
 };
 
-exports.getACom = (req,res) =>{
+exports.getACom = (req,res)=>{
     db.Com.findOne({
         where:{id:req.params.id}
     })
@@ -18,7 +18,7 @@ exports.getACom = (req,res) =>{
 exports.createCom = (req,res)=>{
     db.Com.create({...req.body})
     .then(submitedCom => res.send(submitedCom))
-    .catch(()=>res.status(500).send(new Error('Attention erreur de database!')))
+    .catch(()=>res.status(500).send(new Error('Attention erreur de database!')));
 };
 
 exports.deleteCom = (req,res)=>{

@@ -18,7 +18,7 @@ module.exports = (sequelize,DataTypes)=>{
         }
     });
 
-    Com.associate = models => {Com.belongsTo(models.Post,{onDelete:'CASCADE'})}
-    Com.associate = models => {Com.belongsTo(models.User,{onDelete:'CASCADE'})}
+    Com.associate = models => {Com.belongsTo(models.Post,{onDelete:'CASCADE'})};
+    Com.associate = models => {Com.belongsTo(models.User,{onDelete:'CASCADE'})};
     return Com;
 }

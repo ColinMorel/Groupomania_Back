@@ -7,24 +7,24 @@ const fs = require('fs'); //gerer les file systeme, pense y
 exports.signup = (req,res,next)=>{
     const user = {...req.body}
         bcrypt.hash(req.body.password, 10)
-        .then((hash) =>{
+        .then((hash)=>{
             user.password = hash
             db.User.create(user)
             .then(()=>res.status(201).json({message: 'Utilisateur crée'}))
-            .catch((err) => res.status(400).json({err,message:"1ere err"}))
+            .catch((err)=>res.status(400).json({err,message:"1ere err"}))
         })
-        .catch((err) => res.status(500).json({err,message:"2eme err"}));    
+        .catch((err)=>res.status(500).json({err,message:"2eme err"}));    
 };
 
 exports.login = async (req, res, next)=>{
     db.User.findOne({ where : {email: req.body.email}})
-        .then((user) =>{
+        .then((user)=>{
             if(!user){ 
                 return res.status(401).json({error:'Utilisateur non trouvé!'});
             }
             else{
                 bcrypt.compare(req.body.password, user.password) 
-                .then((valid) => {
+                .then((valid)=>{
                     console.log("valid est", valid);
                     if(!valid){ 
                         return res.status(401).json({error:'Mot de passe incorrect !'})
@@ -39,10 +39,10 @@ exports.login = async (req, res, next)=>{
                         )
                       });
                 })
-                .catch(error => res.status(500).json({message:"Erreur idk"}));
+                .catch(error=>res.status(500).json({message:"Erreur idk"}));
             }
         })            
-        .catch(error => res.status(500).json({error}));
+        .catch(error=>res.status(500).json({error}));
 };
 
 exports.getAllUser = (req,res)=>{
@@ -76,23 +76,23 @@ exports.deleteUser = (req,res)=>{
 
 exports.editUser = (req,res)=>{
     db.User.findOne({where:{id:req.params.id}})
-    .then(user => {
-            if(req.file && req.body.bio){
-                const filename = user.image.split('/images/')[1];//on recup le nom du fichier
-                fs.unlink(`images/${filename}`, () =>{
-                db.User.update({bio:req.body.bio,image:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`},{where:{id: req.params.id}});
-                })
-            }
-            else if(req.file){
-                const filename = user.image.split('/images/')[1];//on recup le nom du fichier
-                fs.unlink(`images/${filename}`, () =>{
-                db.User.update({image:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`},{where:{id: req.params.id}});
-                })
-            }
-            else{
-                db.User.update({bio:req.body.bio},{where:{id: req.params.id}})
-                .then(()=>res.send(`L'User possédant l'id numéro ${req.params.id} a bien été modifié.`))
-                .catch(err => console.log(err));            
-            }            
-        });
-}
+    .then((user)=>{
+        if(req.file && req.body.bio){
+            const filename = user.image.split('/images/')[1];//on recup le nom du fichier
+            fs.unlink(`images/${filename}`, () =>{
+            db.User.update({bio:req.body.bio,image:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`},{where:{id: req.params.id}});
+            })
+        }
+        else if(req.file){
+            const filename = user.image.split('/images/')[1];//on recup le nom du fichier
+            fs.unlink(`images/${filename}`,()=>{
+            db.User.update({image:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`},{where:{id: req.params.id}});
+            })
+        }
+        else{
+            db.User.update({bio:req.body.bio},{where:{id: req.params.id}})
+            .then(()=>res.send(`L'User possédant l'id numéro ${req.params.id} a bien été modifié.`))
+            .catch(err => console.log(err));            
+        }            
+    });
+};
