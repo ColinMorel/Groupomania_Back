@@ -22,6 +22,6 @@ Now to start your server, you need to write (on the terminal located at `Groupom
 
 # Create an administrator
 Now that your database is created and your back server is started, you'll need to go back to the phpMyAdmin browser window. 
-Then, `click on your "groupomania"` database --> "SQL" button --> paste "INSERT INTO `users`(`firstname`,`lastname`,`email`,`password`,`administrator`,`createdAt`,`updatedAt`) VALUES ('admin','rank','administrator@groupomania.com','admin123safe',1,NOW(),NOW())" and click on `execute`.
+Then, `click on your "groupomania"` database --> "SQL" button --> paste "INSERT INTO `users`(`firstname`,`lastname`,`email`,`password`,`administrator`,`createdAt`,`updatedAt`) VALUES ('admin','rank','administrator@groupomania.com','$2b$10$mYrP5a.6DSJ3RwURHOk4auIdgukAQxcGjjcJrGc/LBPg3k37VlbXG',1,NOW(),NOW())" and click on `execute`.
 
 And now, your back server and database are both ready to be used.
