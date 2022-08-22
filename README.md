@@ -9,7 +9,7 @@ I chose wampserver, an application that will help you set up your connection to 
 Then you start the programm Wampserver64, wait few seconds for the windows to pop up and disappear, go on the hidden apps on your task bar and click on "start the services" (on the wamp server icone) and then go to phphMyAdmin 5.1.1. After entering your mysql logs into the browser window that opened, you're going to create a database called "groupomania" into your mysql server.
 
 Now that your database is created, you're going to modify some settings on the config/config.json file. You're gonna put your mysql logs on "username" and "password", write "groupomania" as the in the "database" field, and make sure that the host is correct.
-Now your database is connected to your back server. 
+Now your database is connected to your back server .
 
 
 # Create folders
